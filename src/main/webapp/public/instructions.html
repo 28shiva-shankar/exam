@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <link type="text/css" rel="stylesheet" href="public/css/instructions.css">
+</head>
+
+<body>
+    <div ng-controller="instructionsCtrl">
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5"></div>
+                <div class="col-lg-2">
+                    <img alt="Logo" src="public/DHLogo.jpg">
+                </div>
+                <div class="col-lg-5"></div>
+            </div>
+            <div class="app-card">
+                <div class="card-header">
+                    <div class="card-title">Instructions</div>
+                </div>
+                <div class="card-body">
+                    <p>Please read the following instructions and click on "Begin Test" once ready.</p>
+                    <ul>
+                        <li>The test paper is divided into three categories with 30 questions in total
+                            <ol>
+                                <li>Aptitude (10)</li>
+                                <li>Technical (10)</li>
+                                <li>Logical Reasoning (10)</li>
+                            </ol>
+                        </li>
+                        <li>The total test duration is 90 Minutes</li>
+                        <li>Aptitude Test:
+                            <ul>
+                                <li>Correct answer carries 1 mark</li>
+                                <li>No negative marking</li>
+                                <li>Unattempted answers carries no marks</li>
+                            </ul>
+                        </li>
+                        <li>Technical Test:
+                            <ul>
+                                <li>Correct answer carries 1 mark</li>
+                                <li>No negative marking</li>
+                                <li>Unattempted answers carries no marks</li>
+                            </ul>
+                        </li>
+                        <li>Logical Reasoning:
+                            <ul>
+                                <li>Correct answer carries 1 mark</li>
+                                <li>No negative marking</li>
+                                <li>Unattempted answers carries no marks</li>
+                            </ul>
+                        </li>
+                        <li>Mark your answers in digits (Ex: 1, 2, 3, 4) for multiple choice questions. 
+                        </li>
+                    </ul>
+                    <p style="text-align:center;">"All the Best...!!!"</p>
+                    <button class="btn btn-primary" ng-click="begin()" ng-disabled="student.status=='SUBMITTED'">Begin Test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

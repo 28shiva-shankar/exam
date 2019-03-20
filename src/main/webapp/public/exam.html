@@ -1,0 +1,192 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="public/css/exam.css">
+</head>
+
+<body>
+    <div ng-controller="examCtrl">
+
+        <div ng-if="student.status == 'ONGOING'">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ng-click="loadQuestions('APTITUDE')" ng-class="{'active':isAptiActive}">
+                    <a data-target="#aptitude" role="tab" data-toggle="tab">Aptitude</a>
+                </li>
+                <li role="presentation" ng-click="loadQuestions('LOGICAL')" ng-class="{'active':isLogicalActive}">
+                    <a data-target="#logical" role="tab" data-toggle="tab">Logical</a>
+                </li>
+                <li role="presentation" ng-click="loadQuestions('TECHNICAL')" ng-class="{'active':isTechnicalActive}">
+                    <a data-target="#technical" role="tab" data-toggle="tab">Technical</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="aptitude" ng-class="{'active':isAptiActive}">
+                    <div ng-if="!answers['APTITUDE']">
+                        <h1>Loading...</h1>
+                    </div>
+
+                    <div ng-if="answers['APTITUDE']">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <button type="button" class="btn btn-primary" ng-click="previous('APTITUDE')" ng-disabled="index['APTITUDE'] == 0">Previous</button>
+                                </div>
+                                <div class="col-lg-9" style="margin-top:50px;">
+                                    <div class="question" id="QA{{index['APTITUDE']+ 1}}">
+                                        {{index['APTITUDE']+1}}.
+                                        <!-- <img ng-if="answer.question.infoPath" ng-src="{{answer.question.infoPath}}" /> -->
+                                        <img ng-src="{{answer.question.path}}" />
+                                        <div style="margin-top: 10px; margin-left: 30px">
+                                            <span ng-repeat="option in getCount(answer.question.optionCount) track by $index">
+                                                <button type="button" class="btn" ng-click="selectOption(answer, answer.answer, $index+1, answer.question.multi)" ng-class="isOptionSelected(answer.answer, $index+1, answer.question.multi) ? 'btn-primary' : 'btn-default'">
+                                                    {{$index + 1}}
+                                                </button>
+                                            </span>
+                                            <!-- <span ng-if="answer.question.text">
+                                                <input type="text" class="form-control" ng-model="answer.answer" />
+                                            </span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <button type="button" class="btn btn-primary" ng-click="next('APTITUDE')" ng-disabled="index['APTITUDE']==answers['APTITUDE'].length-1">Next</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="answer-bar">
+                            <div class="col-sm-6">
+                                <h4>{{timeLeft | date:'HH:mm:ss'}}</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary" ng-click="submitClick()">Submit</button>
+                            </div>
+                            <hr />
+                            <div>
+                                <a ng-repeat="answer in answers['APTITUDE'] track by $index" ng-click="loadQuestion('APTITUDE',$index)">
+                                    <div tabindex="3" class="answer col-sm-12" ng-class="answer.answer?'answered':'not-answered'">
+                                        {{$index+1}} : {{answer.answer}}
+                                    </div>
+                                </a>
+                            </div>
+                            <hr />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="logical" ng-class="{'active':isLogicalActive}">
+                    <div ng-if="!answers['LOGICAL']">
+                        <h1>Loading...</h1>
+                    </div>
+                    <div ng-if="answers['LOGICAL']">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <button type="button" class="btn btn-primary" ng-click="previous('LOGICAL')" ng-disabled="index['LOGICAL'] == 0">Previous</button>
+                                </div>
+                                <div class="col-lg-9" style="margin-top:50px;">
+                                    <div class="question" id="QL{{$index + 1}}">
+                                        {{index['LOGICAL']+1}}.
+                                        <img ng-src="{{answer.question.path}}" />
+                                        <div style="margin-top: 10px; margin-left: 30px">
+                                            <span ng-repeat="option in getCount(answer.question.optionCount) track by $index">
+                                                <button type="button" class="btn" ng-click="selectOption(answer, answer.answer, $index+1, answer.question.multi)" ng-class="isOptionSelected(answer.answer, $index+1, answer.question.multi) ? 'btn-primary' : 'btn-default'">
+                                                    {{$index + 1}}
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <button type="button" class="btn btn-primary" ng-click="next('LOGICAL')" ng-disabled="index['LOGICAL'] == answers['LOGICAL'].length-1">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="answer-bar">
+                            <div class="col-sm-6">
+                                <h4>{{timeLeft | date:'HH:mm:ss'}}</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary" ng-click="submitClick()">Submit</button>
+                            </div>
+                            <hr />
+                            <div>
+                                <a ng-repeat="answer in answers['LOGICAL'] track by $index" ng-click="loadQuestion('LOGICAL',$index)">
+                                    <div tabindex="3" class="answer col-sm-12" ng-class="answer.answer?'answered':'not-answered'">
+                                        {{$index+1}} : {{ answer.answer }}
+                                    </div>
+                                </a>
+                            </div>
+                            <hr />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="technical" ng-class="{'active':isTechnicalActive}">
+                    <div ng-if="!answers['TECHNICAL']">
+                        <h1>Loading...</h1>
+                    </div>
+                    <div ng-if="answers['TECHNICAL']">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <button type="button" class="btn btn-primary" ng-click="previous('TECHNICAL')" ng-disabled="index['TECHNICAL'] == 0">Previous</button>
+                                </div>
+                                <div class="col-lg-9" style="margin-top:50px;">
+                                    <div class="question" id="QT{{$index + 1}}">
+                                        {{index['TECHNICAL']+1}}.
+                                        <img ng-src="{{answer.question.path}}" />
+                                        <div style="margin-top: 10px; margin-left: 30px">
+                                            <span ng-repeat="option in getCount(answer.question.optionCount) track by $index">
+                                                <button type="button" class="btn" ng-click="selectOption(answer, answer.answer, $index+1, answer.question.multi)" ng-class="isOptionSelected(answer.answer, $index+1, answer.question.multi) ? 'btn-primary' : 'btn-default'">
+                                                    {{$index + 1}}
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-1">
+                                    <button type="button" class="btn btn-primary" ng-click="next('TECHNICAL')" ng-disabled="index['TECHNICAL'] == answers['TECHNICAL'].length-1">Next</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="answer-bar">
+                            <div class="col-sm-6">
+                                <h4>{{timeLeft | date:'HH:mm:ss'}}</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <button class="btn btn-primary" ng-click="submitClick()">Submit</button>
+                            </div>
+                            <hr />
+                            <div>
+                                <a ng-repeat="answer in answers['TECHNICAL'] track by $index" ng-click="loadQuestion('TECHNICAL',$index)">
+                                    <div tabindex="3" class="answer col-sm-12" ng-class="answer.answer?'answered':'not-answered'">
+                                        {{$index+1}} : {{ answer.answer }}
+                                    </div>
+                                </a>
+                            </div>
+                            <hr />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-if="student.status == 'SUBMITTED'">
+            <h1>Your exam paper has been submitted successfully.Thank you.</h1>
+        </div>
+
+    </div>
+</body>
+
+</html>

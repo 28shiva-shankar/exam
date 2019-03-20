@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="public/css/register.css">
+</head>
+
+<body>
+    <div ng-controller="registerCtrl">
+        <div class="row">
+            <div class="col-lg-5"></div>
+            <div class="col-lg-2">
+                <img alt="Logo" src="public/DHLogo.jpg">
+            </div>
+            <div class="col-lg-5"></div>
+        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="app-card">
+                <div class="card-header">
+                    <h4>Registration Form</h4>
+                </div>
+                <form name="userForm" ng-submit="submit(student)" novalidate>
+                    <div class="card-body">
+                        <div class="form-group required">
+                            <label for="stdname">Student Name </label> :
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <input type="text" class="form-control" name="studentName" placeholder="Student Name" ng-model="student.studentName" ng-required="true">
+                            </div>
+                            <span class="text-danger" ng-if="(isFormSubmitted || userForm.studentName.$dirty) && userForm.studentName.$invalid">Please enter a valid student name.</span>
+                        </div>
+                        <div class="form-group required">
+                            <label for="rollNo">Roll Number </label> :
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-education"></i>
+                                </span>
+                                <input type="text" class="form-control" name="rollNo" placeholder="Roll Number" ng-model="student.rollNo" ng-required="true">
+                            </div>
+                            <span class="text-danger" ng-if="(isFormSubmitted || userForm.rollNo.$dirty) && userForm.rollNo.$invalid">Please enter a valid roll number.</span>
+                        </div>
+                        <div class="form-group required">
+                            <label for="email">Email-ID </label> :
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                </span>
+                                <input type="email" class="form-control" name="emailId" placeholder="Email-ID" ng-model="student.emailId" ng-required="true">
+                            </div>
+                            <span class="text-danger" ng-if="(isFormSubmitted || userForm.emailId.$dirty) && userForm.emailId.$invalid">Please enter a valid Email Id.</span>
+                        </div>
+                        <div class="form-group required">
+                            <label for="contact">Contact Number </label> :
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-phone"></i>
+                                </span>
+                                <input type="text" class="form-control" name="mobileNo" placeholder="Contact Number" ng-model="student.mobileNo" ng-minlength="10" ng-maxlength="10"
+                                    ng-keypress="filterValue($event)" ng-required="true">
+                            </div>
+                            <span class="text-danger" ng-if="(isFormSubmitted || userForm.mobileNo.$dirty) && userForm.mobileNo.$invalid">Please enter a valid mobile number.</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-primary pull-right" ng-click="clear()">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5"></div>
+    </div>
+</body>
+
+</html>
